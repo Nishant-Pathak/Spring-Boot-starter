@@ -6,9 +6,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import rs.pscode.pomodorofire.config.auth.firebase.FirebaseTokenHolder;
-import rs.pscode.pomodorofire.service.FirebaseService;
 import rs.pscode.pomodorofire.web.facade.WebFacade;
 
 @RestController
