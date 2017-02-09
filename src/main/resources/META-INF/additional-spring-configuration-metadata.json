@@ -1,0 +1,19 @@
+{
+  "properties": [
+    {
+      "name": "rs.pscode.firebase.enabled",
+      "type": "java.lang.String",
+      "description": "Description for rs.pscode.firebase.enabled."
+    },
+    {
+      "name": "rs.pscode.firebase.config.path",
+      "type": "java.lang.String",
+      "description": "Description for rs.pscode.firebase.config.path."
+    },
+    {
+      "name": "rs.pscode.firebase.database.url",
+      "type": "java.lang.String",
+      "description": "Description for rs.pscode.firebase.database.url."
+    }
+  ]
+}
