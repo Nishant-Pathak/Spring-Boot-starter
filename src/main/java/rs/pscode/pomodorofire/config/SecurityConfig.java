@@ -77,6 +77,7 @@ public class SecurityConfig {
       auth.userDetailsService(userService);
       if (firebaseEnabled) {
         auth.authenticationProvider(firebaseProvider);
+      } else {
       }
     }
 
@@ -101,8 +102,8 @@ public class SecurityConfig {
             .anonymous().authorities(Roles.ROLE_ANONYMOUS);//
       } else {
         http.httpBasic().and().authorizeRequests()//
-
-            .antMatchers("/api/open/**").hasAnyRole(Roles.ANONYMOUS)//
+            .antMatchers("/open/signup").permitAll()//
+            .antMatchers("/index","/api/open/**").hasAnyRole(Roles.ADMIN, Roles.USER, Roles.ANONYMOUS)//
             .antMatchers("/api/client/**").hasRole(Roles.USER)//
             .antMatchers("/api/admin/**").hasAnyRole(Roles.ADMIN)//
             .antMatchers("/health/**").hasAnyRole(Roles.ADMIN)//

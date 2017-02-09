@@ -10,8 +10,10 @@
     <c:when test="${loggedIn}">
         You are logged in
         <p>Guru Web:
-            <security:authentication property="userName" /> as <security:authentication
+            <c:catch>
+                <security:authentication property="userName" /> as <security:authentication
                     property="principal.authorities" />
+            </c:catch>
         </p>
     </c:when>
     <c:otherwise>

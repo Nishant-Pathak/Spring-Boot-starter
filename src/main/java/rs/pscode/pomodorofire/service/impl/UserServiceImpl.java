@@ -81,6 +81,7 @@ public class UserServiceImpl implements UserService {
 			UserEntity adminEntity = new UserEntity();
 			adminEntity.setUsername("admin");
 			adminEntity.setPassword("admin");
+			adminEntity.setCallName("admin");
 			adminEntity.setEmail("savic.prvoslav@gmail.com");
 
 			adminEntity.setAuthorities(getAdminRoles());
@@ -89,7 +90,8 @@ public class UserServiceImpl implements UserService {
 			UserEntity userEntity = new UserEntity();
 			userEntity.setUsername("user1");
 			userEntity.setPassword("user1");
-			userEntity.setEmail("savic.prvoslav@gmail.com");
+			userEntity.setCallName("user1");
+			userEntity.setEmail("nishantpathak.cse@gmail.com");
 			userEntity.setAuthorities(getUserRoles());
 
 			userDao.save(userEntity);
