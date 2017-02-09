@@ -305,13 +305,13 @@ in application.properties. This will register especial FirebaseFilter and authen
 
 ### Firebase filter
 
-Filter checks if  header named "X-Authorization-Firebase" exists, if does not this means that request should not be processed by this filter. When token is found it is parsed using ```firebaseService.parseToken(xAuth)``` and correct Authentication is created ```FirebaseAuthenticationToken``` that is put in the securityContextHolder. Job of the filter is here done and authentication process is being taken over by authentication provider.
+Filter checks if  header named "X-Session-Key" exists, if does not this means that request should not be processed by this filter. When token is found it is parsed using ```firebaseService.parseToken(xAuth)``` and correct Authentication is created ```FirebaseAuthenticationToken``` that is put in the securityContextHolder. Job of the filter is here done and authentication process is being taken over by authentication provider.
 
 
 ```
 public class FirebaseFilter extends OncePerRequestFilter {
 
-	private static String HEADER_NAME = "X-Authorization-Firebase";
+	private static String HEADER_NAME = "X-Session-Key";
 
 	private FirebaseService firebaseService;
 

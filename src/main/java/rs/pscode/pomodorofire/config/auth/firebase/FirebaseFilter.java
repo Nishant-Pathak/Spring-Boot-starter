@@ -17,7 +17,7 @@ import rs.pscode.pomodorofire.util.StringUtil;
 
 public class FirebaseFilter extends OncePerRequestFilter {
 
-	private static String HEADER_NAME = "X-Authorization-Firebase";
+	private static String HEADER_NAME = "X-Session-Key";
 
 	private FirebaseService firebaseService;
 

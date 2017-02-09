@@ -9,15 +9,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
+import rs.pscode.pomodorofire.service.UserService;
 import rs.pscode.pomodorofire.service.exception.FirebaseUserNotExistsException;
 import rs.pscode.pomodorofire.service.impl.UserServiceImpl;
+import rs.pscode.pomodorofire.service.shared.RegisterUserInit;
 
 @Component
 public class FirebaseAuthenticationProvider implements AuthenticationProvider {
 
 	@Autowired
 	@Qualifier(value = UserServiceImpl.NAME)
-	private UserDetailsService userService;
+	private UserService userService;
 
 	public boolean supports(Class<?> authentication) {
 		return (FirebaseAuthenticationToken.class.isAssignableFrom(authentication));
@@ -31,7 +33,12 @@ public class FirebaseAuthenticationProvider implements AuthenticationProvider {
 		FirebaseAuthenticationToken authenticationToken = (FirebaseAuthenticationToken) authentication;
 		UserDetails details = userService.loadUserByUsername(authenticationToken.getName());
 		if (details == null) {
-			throw new FirebaseUserNotExistsException();
+			try {
+				details = userService.registerUser(new RegisterUserInit(authenticationToken.getName(),
+						((FirebaseTokenHolder) authentication.getCredentials()).getEmail()));
+			} catch (Exception ex) {
+				throw new FirebaseUserNotExistsException();
+			}
 		}
 
 		authenticationToken = new FirebaseAuthenticationToken(details, authentication.getCredentials(),

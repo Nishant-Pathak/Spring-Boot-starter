@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
-	@Secured(value = Roles.ROLE_ANONYMOUS)
+//	@Secured(value = Roles.ROLE_ANONYMOUS)
 	public UserEntity registerUser(RegisterUserInit init) {
 
 		UserEntity userLoaded = userDao.findByUsername(init.getUserName());

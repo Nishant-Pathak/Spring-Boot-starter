@@ -110,7 +110,6 @@ var loginGuru = function(user) {
     var photoURL = user.photoURL;
     var uid = user.uid;
     var providerData = user.providerData;
-/*
     user.getToken().then(function(accessToken) {
       $.ajax({
         url: '/open/signup',
@@ -123,7 +122,6 @@ var loginGuru = function(user) {
         }
       });
     });
-*/
   }
 };
 

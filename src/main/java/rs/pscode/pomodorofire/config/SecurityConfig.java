@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.authentication.configurers
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
@@ -58,15 +59,31 @@ public class SecurityConfig {
   }
 
   @Configuration
+  @EnableWebSecurity
   @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
   protected static class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 
     @Value("${rs.pscode.firebase.enabled}")
     private Boolean firebaseEnabled;
 
+    @Autowired
+    private FirebaseAuthenticationProvider firebaseProvider;
+
+    @Autowired
+    private UserDetailsService userService;
+
+
+    @Override protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+      auth.userDetailsService(userService);
+      if (firebaseEnabled) {
+        auth.authenticationProvider(firebaseProvider);
+      }
+    }
+
     @Override
     public void configure(WebSecurity web) throws Exception {
-      web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources",
+      web.ignoring().antMatchers("/v2/api-docs", "/resources/**", "/configuration/ui",
+          "/swagger-resources",
           "/configuration/security", "/swagger-ui.html", "/webjars/**", "/v2/swagger.json");
     }
 
@@ -75,11 +92,11 @@ public class SecurityConfig {
       if (firebaseEnabled) {
         http.addFilterBefore(tokenAuthorizationFilter(), BasicAuthenticationFilter.class).authorizeRequests()//
 
+            .antMatchers("/open/signup").permitAll()//
             .antMatchers("/api/open/**").hasAnyRole(Roles.ANONYMOUS)//
             .antMatchers("/api/client/**").hasRole(Roles.USER)//
             .antMatchers("/api/admin/**").hasAnyRole(Roles.ADMIN)//
             .antMatchers("/health/**").hasAnyRole(Roles.ADMIN)//
-            .antMatchers("/open/signup").permitAll()//
             .antMatchers("/**").permitAll()//
             .and().csrf().disable()//
             .anonymous().authorities(Roles.ROLE_ANONYMOUS);//
