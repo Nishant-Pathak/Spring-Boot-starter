@@ -90,14 +90,13 @@ public class SecurityConfig {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
       if (firebaseEnabled) {
-        http.addFilterBefore(tokenAuthorizationFilter(), BasicAuthenticationFilter.class).authorizeRequests()//
-
+        http.formLogin().loginPage("/open/signup").and()
+            .addFilterBefore(tokenAuthorizationFilter(), BasicAuthenticationFilter.class).authorizeRequests()//
             .antMatchers("/open/signup").permitAll()//
-            .antMatchers("/api/open/**").hasAnyRole(Roles.ANONYMOUS)//
+            .antMatchers("/index","/api/open/**").hasAnyRole(Roles.ADMIN, Roles.USER, Roles.ANONYMOUS)//
             .antMatchers("/api/client/**").hasRole(Roles.USER)//
-            .antMatchers("/api/admin/**").hasAnyRole(Roles.ADMIN)//
-            .antMatchers("/health/**").hasAnyRole(Roles.ADMIN)//
-            .antMatchers("/**").permitAll()//
+            .antMatchers("/health/**", "/api/admin/**").hasAnyRole(Roles.ADMIN)//
+            .antMatchers("/**").authenticated()//
             .and().csrf().disable()//
             .anonymous().authorities(Roles.ROLE_ANONYMOUS);//
       } else {
@@ -107,7 +106,6 @@ public class SecurityConfig {
             .antMatchers("/api/client/**").hasRole(Roles.USER)//
             .antMatchers("/api/admin/**").hasAnyRole(Roles.ADMIN)//
             .antMatchers("/health/**").hasAnyRole(Roles.ADMIN)//
-            .antMatchers("/index").permitAll()//
             .antMatchers("/**").denyAll()//
             .and().csrf().disable()//
             .anonymous().authorities(Roles.ROLE_ANONYMOUS);//

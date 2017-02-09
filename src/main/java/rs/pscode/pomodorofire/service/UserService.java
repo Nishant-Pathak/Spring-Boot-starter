@@ -7,6 +7,6 @@ import rs.pscode.pomodorofire.service.shared.RegisterUserInit;
 
 public interface UserService extends UserDetailsService {
 
-	public UserEntity registerUser(RegisterUserInit init);
+	UserEntity registerUser(RegisterUserInit init);
 
 }

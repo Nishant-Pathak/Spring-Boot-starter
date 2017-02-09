@@ -58,6 +58,7 @@ public class UserServiceImpl implements UserService {
 		if (userLoaded == null) {
 			UserEntity userEntity = new UserEntity();
 			userEntity.setUsername(init.getUserName());
+			userEntity.setCallName(init.getCallName());
 			userEntity.setEmail(init.getEmail());
 
 			userEntity.setAuthorities(getUserRoles());

@@ -17,7 +17,7 @@ public class SignupResource {
 	private WebFacade facade;
 
 	@RequestMapping(value = "/open/signup", method = RequestMethod.POST)
-	public void signUp(@RequestHeader(name = "X-Session-Key") String firebaseToken) {
+	public void signUp(@RequestHeader(name = "X-Authorization-Firebase") String firebaseToken) {
 		logger.info(firebaseToken);
 		facade.registerUser(firebaseToken);
 	}

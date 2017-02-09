@@ -1,13 +1,13 @@
 package rs.pscode.pomodorofire.config.auth.firebase;
 
 import java.util.Collection;
-
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
+import rs.pscode.pomodorofire.domain.model.UserEntity;
 
 /**
  * UsernamePasswordAuthenticationToken
- * 
+ *
  * @author prvoslav
  *
  */
@@ -66,6 +66,14 @@ public class FirebaseAuthenticationToken extends AbstractAuthenticationToken {
 
 		super.setAuthenticated(false);
 	}
+
+	public String getUserName() {
+		if (this.principal instanceof UserEntity) {
+			return ((UserEntity) this.principal).getCallName();
+		}
+		return super.getName();
+	}
+
 
 	@Override
 	public void eraseCredentials() {

@@ -115,7 +115,7 @@ var loginGuru = function(user) {
         url: '/open/signup',
         type: 'post',
         headers: {
-          "X-Session-Key": accessToken
+          "X-Authorization-Firebase": accessToken
         },
         success: function(){
           window.location.href = '/';

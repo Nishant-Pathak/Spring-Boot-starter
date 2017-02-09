@@ -5,21 +5,19 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <security:authorize var="loggedIn" access="isAuthenticated()" />
+<%@ include file="header.html" %>
 <c:choose>
     <c:when test="${loggedIn}">
         You are logged in
+        <p>Guru Web:
+            <security:authentication property="userName" /> as <security:authentication
+                    property="principal.authorities" />
+        </p>
     </c:when>
     <c:otherwise>
       <%  response.sendRedirect("/open/signup"); %>
     </c:otherwise>
 </c:choose>
-<%@ include file="header.html" %>
-<p>Guru Web:
-<%--
-    <security:authentication property="userName" /> as <security:authentication
-            property="principal.authorities" />
---%>
-</p>
 
 <security:authorize access="hasRole('ANONYMOUS')">
     This will be only visible to anonymous

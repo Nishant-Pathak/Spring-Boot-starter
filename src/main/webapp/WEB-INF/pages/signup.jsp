@@ -36,10 +36,6 @@
             </div>
             <div id="user-signed-out" class="hidden">
                 <h4>You are signed out.</h4>
-                <p>
-                    <button id="sign-in-with-redirect">Sign In with Redirect</button>
-                    <button id="sign-in-with-popup">Sign In with Popup</button>
-                </p>
                 <div id="firebaseui-spa">
                     <h5>Single Page Application mode:</h5>
                     <div id="firebaseui-container"></div>
